@@ -1,0 +1,4 @@
+name: AnotherPunishGUI
+version: '${version}'
+main: io.github.math0898.anotherpunishgui.AnotherPunishGUI
+api-version: '1.20'
