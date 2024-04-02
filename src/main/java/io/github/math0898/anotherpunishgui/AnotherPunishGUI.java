@@ -15,18 +15,20 @@ public final class AnotherPunishGUI extends JavaPlugin {
      */
     private static AnotherPunishGUI instance;
 
+    /**
+     * An accessor method for the active AnotherPunishGUI instance.
+     */
     public static AnotherPunishGUI getInstance () {
         return instance;
     }
 
     /**
-     * An accessor method for the active AnotherPunishGUI instance.
+     * Called when the plugin is enabled. Used to register listeners, commands, load configuration, etc.
      */
-
-
     @Override
-    public void onEnable() {
+    public void onEnable () {
         instance = this;
         new SRootCommand();
+        ConfigManager.getInstance();
     }
 }
