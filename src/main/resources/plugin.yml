@@ -2,3 +2,16 @@ name: AnotherPunishGUI
 version: '${version}'
 main: io.github.math0898.anotherpunishgui.AnotherPunishGUI
 api-version: '1.20'
+author: Sugaku
+description: "A punish GUI plugin developed as a trial project."
+commands:
+  s:
+    permission: "apgui.staff"
+    description: "The root staff command for interacting with the AnotherPunishGUI plugin."
+  report:
+    permission: "apgui.report"
+    description: "Intended to be used by players to issue reports of suspected hackers to staff."
+permissions:
+  apgui.*:
+    apgui.staff:
+    apgui.report:

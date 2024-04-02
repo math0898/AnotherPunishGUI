@@ -1,0 +1,16 @@
+# An arbitrary number of punishments may be defined.
+# The internal name is used for tab-completing and the display-name for GUI.
+punishments:
+  xray-1d:
+    internal-name: "Xray-1d"
+    display-name: "Xray 1d Ban"
+    description:
+      - "&7XRay First Offense"
+
+# These are reasons that a player may wish to report another player.
+# Players will also be allowed to type in their own reason.
+reasons:
+  - "flight"
+  - "xray"
+  - "KAura"
+  - "Reach"
