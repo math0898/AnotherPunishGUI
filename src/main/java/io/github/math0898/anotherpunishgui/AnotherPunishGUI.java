@@ -1,5 +1,6 @@
 package io.github.math0898.anotherpunishgui;
 
+import io.github.math0898.anotherpunishgui.commands.ReportCommand;
 import io.github.math0898.anotherpunishgui.commands.SRootCommand;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +27,7 @@ public final class AnotherPunishGUI extends JavaPlugin {
     public void onEnable () {
         instance = this;
         new SRootCommand();
+        new ReportCommand();
         ConfigManager.getInstance();
     }
 }

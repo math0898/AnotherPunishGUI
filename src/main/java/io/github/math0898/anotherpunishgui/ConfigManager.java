@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The ConfigManager handles loading and saving the configuration files for AnotherPunishGUI.
@@ -27,6 +29,14 @@ public class ConfigManager {
     private boolean useLightAntiCheat = true;
 
     /**
+     * The list of options players are given to report other players with.
+     * -- GETTER --
+     * A list of reasons players are recommended to report as.
+     */
+    @Getter
+    private List<String> reportReasons = new ArrayList<>();
+
+    /**
      * Creates a new ConfigManager.
      */
     private ConfigManager () {
@@ -34,6 +44,7 @@ public class ConfigManager {
         plugin.saveDefaultConfig();
         FileConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/AnotherPunishGUI/config.yaml"));
         useLightAntiCheat = config.getBoolean("light-anti-cheat", true);
+        reportReasons = config.getStringList("reasons");
     }
 
     /**
