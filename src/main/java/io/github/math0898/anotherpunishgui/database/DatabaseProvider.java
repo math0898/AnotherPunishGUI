@@ -21,7 +21,7 @@ public class DatabaseProvider {
      * Creates the DatabaseProvider and determines which database to utilize.
      */
     private DatabaseProvider () {
-        database = null; // todo: Implement.
+        database = new LocalDatabase(); // todo: Implement.
     }
 
     /**

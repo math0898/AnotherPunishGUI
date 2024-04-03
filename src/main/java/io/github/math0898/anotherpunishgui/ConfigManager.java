@@ -42,7 +42,7 @@ public class ConfigManager {
     private ConfigManager () {
         AnotherPunishGUI plugin = AnotherPunishGUI.getInstance();
         plugin.saveDefaultConfig();
-        FileConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/AnotherPunishGUI/config.yaml"));
+        FileConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/AnotherPunishGUI/config.yml"));
         useLiteBans = config.getBoolean("lite-bans", true);
         reportReasons = config.getStringList("reasons");
     }

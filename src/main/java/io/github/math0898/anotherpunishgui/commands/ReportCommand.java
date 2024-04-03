@@ -71,8 +71,8 @@ public class ReportCommand extends BetterCommand {
     @Override
     public List<String> simplifiedTab(CommandSender sender, String[] args) {
         List<String> toReturn = new ArrayList<>();
-        if (args.length == 0) Bukkit.getOnlinePlayers().forEach((p) -> toReturn.add(p.getName()));
-        else if (args.length == 1) toReturn.addAll(ConfigManager.getInstance().getReportReasons());
+        if (args.length <= 1) Bukkit.getOnlinePlayers().forEach((p) -> toReturn.add(p.getName()));
+        else if (args.length == 2) toReturn.addAll(ConfigManager.getInstance().getReportReasons());
         return everythingStartsWith(toReturn, args[args.length - 1], false);
     }
 }
