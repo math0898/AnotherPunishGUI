@@ -18,5 +18,5 @@ reasons:
 
 # Whether to use the listed integration.
 hooks:
-  # LightAntiCheat can be used to issue punishments as an alternative to the built-in system.
-  light-anti-cheat: true
+  # LiteBans can be used to issue punishments as an alternative to the built-in system.
+  lite-bans: true

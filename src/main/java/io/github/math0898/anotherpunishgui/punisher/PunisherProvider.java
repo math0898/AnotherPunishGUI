@@ -25,7 +25,7 @@ public class PunisherProvider {
      */
     private PunisherProvider () {
         ConfigManager manager = ConfigManager.getInstance();
-        if (manager.isUseLightAntiCheat() && Bukkit.getPluginManager().isPluginEnabled("LightAntiCheat"))
+        if (manager.isUseLiteBans() && Bukkit.getPluginManager().isPluginEnabled("LightAntiCheat"))
             punisher = new LightAntiCheatPunisher();
         else punisher = new StandalonePunisher();
     }

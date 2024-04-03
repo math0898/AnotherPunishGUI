@@ -21,12 +21,12 @@ public class ConfigManager {
     private static ConfigManager instance;
 
     /**
-     * Whether LightAntiCheat should be used for issuing punishments or not.
+     * Whether LiteBans should be used for issuing punishments or not.
      * -- GETTER --
      * Whether to use LightAntiCheat or not if it is present.
      */
     @Getter
-    private boolean useLightAntiCheat = true;
+    private boolean useLiteBans = true;
 
     /**
      * The list of options players are given to report other players with.
@@ -43,7 +43,7 @@ public class ConfigManager {
         AnotherPunishGUI plugin = AnotherPunishGUI.getInstance();
         plugin.saveDefaultConfig();
         FileConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/AnotherPunishGUI/config.yaml"));
-        useLightAntiCheat = config.getBoolean("light-anti-cheat", true);
+        useLiteBans = config.getBoolean("lite-bans", true);
         reportReasons = config.getStringList("reasons");
     }
 
