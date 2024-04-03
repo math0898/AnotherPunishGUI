@@ -15,7 +15,7 @@ import java.util.logging.Level;
  *
  * @author Sugaku
  */
-public abstract class BetterCommand implements CommandExecutor, TabCompleter { // todo: Perhaps include an additional permission check.
+public abstract class BetterCommand implements CommandExecutor, TabCompleter, Subcommand { // todo: Perhaps include an additional permission check.
  // todo: Perhaps pre-define a list of basic tab completion options and add an additional option to register a call when args.length = 3/4 etc.
     /**
      * The name of this command as written in plugin.yml.
@@ -32,7 +32,7 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter { /
      *
      * @param name The name of the command as written in plugin.yml.
      */
-    public BetterCommand(String name) {
+    public BetterCommand (String name) {
         commandName = name;
         register();
     }
@@ -43,35 +43,11 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter { /
      * @param name   The name of the command as written in plugin.yml.
      * @param prefix A prefix that should be sent when sending a message from this command.
      */
-    public BetterCommand(String name, String prefix) {
+    public BetterCommand (String name, String prefix) {
         commandName = name;
         this.prefix = prefix;
         register();
     }
-
-    /**
-     * Called whenever specifically a player executes this command.
-     *
-     * @param player The player who ran this command.
-     * @param args   The arguments they passed to the command.
-     */
-    public abstract boolean onPlayerCommand (Player player, String[] args);
-
-    /**
-     * Called whenever an unspecified sender executes this command. This could include console and command blocks.
-     *
-     * @param sender The sender who ran this command.
-     * @param args   The arguments they passed to the command.
-     */
-    public abstract boolean onNonPlayerCommand (CommandSender sender, String[] args);
-
-    /**
-     * Called whenever a command sender is trying to tab complete a command.
-     *
-     * @param sender The sender who is tab completing this command.
-     * @param args   The current arguments they have typed.
-     */
-    public abstract List<String> simplifiedTab (CommandSender sender, String[] args);
 
     /**
      * Trims the given list down to only arguments that start with the given substring. Does not mutate the given list.
@@ -163,7 +139,7 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter { /
      * @param message    The message to send.
      * @param sendPrefix Whether a prefix should be sent with this message or not.
      */
-    protected void send(CommandSender user, String message, boolean sendPrefix) {
+    protected void send (CommandSender user, String message, boolean sendPrefix) {
         if (sendPrefix) user.sendMessage(prefix + message);
         else user.sendMessage(ChatColor.GRAY + message);
     }

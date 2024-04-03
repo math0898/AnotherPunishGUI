@@ -1,34 +1,17 @@
 package io.github.math0898.anotherpunishgui.commands;
 
-import io.github.math0898.utils.commands.BetterCommand;
 import io.github.math0898.utils.commands.Subcommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * The SRootCommand handles the root part of any given commands and passes them onto other command handlers.
+ * The NoteSubcommand is used by staff to write notes about specific problem players.
  *
  * @author Sugaku
  */
-public class SRootCommand extends BetterCommand {
-
-    /**
-     * A map of Subcommands. The key value is the first word to activate the subcommand.
-     */
-    private final Map<String, Subcommand> subcommands = new HashMap<>();
-
-    /**
-     * Creates a new BetterCommand with the given name.
-     */
-    public SRootCommand () {
-        super("s");
-        subcommands.put("notes", new NoteSubcommand());
-    }
+public class NoteSubcommand implements Subcommand {
 
     /**
      * Called whenever specifically a player executes this command.
@@ -38,7 +21,7 @@ public class SRootCommand extends BetterCommand {
      */
     @Override
     public boolean onPlayerCommand (Player player, String[] args) {
-        return true;
+        return false;
     }
 
     /**
@@ -49,7 +32,7 @@ public class SRootCommand extends BetterCommand {
      */
     @Override
     public boolean onNonPlayerCommand (CommandSender sender, String[] args) {
-        return true;
+        return false;
     }
 
     /**
@@ -60,13 +43,6 @@ public class SRootCommand extends BetterCommand {
      */
     @Override
     public List<String> simplifiedTab (CommandSender sender, String[] args) {
-        List<String> toReturn = new ArrayList<>();
-        if (args.length == 0) toReturn.addAll(subcommands.keySet());
-        else if (args.length > 1) {
-            Subcommand sub = subcommands.get(args[0]);
-            if (sub == null) return toReturn;
-            else return sub.simplifiedTab(sender, args);
-        }
-        return everythingStartsWith(toReturn, args[0], false);
+        return null;
     }
 }
