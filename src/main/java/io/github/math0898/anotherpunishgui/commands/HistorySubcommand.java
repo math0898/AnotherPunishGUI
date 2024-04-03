@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 /**
- * The NoteSubcommand is used by staff to write notes about specific problem players.
+ * The HistorySubcommand is used to show a target's punishment history.
  *
  * @author Sugaku
  */
-public class NoteSubcommand implements Subcommand { // todo: Implement.
+public class HistorySubcommand implements Subcommand { // todo: Implement
 
     /**
      * Called whenever specifically a player executes this command.

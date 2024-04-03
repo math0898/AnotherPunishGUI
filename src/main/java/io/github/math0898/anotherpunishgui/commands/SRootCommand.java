@@ -2,13 +2,11 @@ package io.github.math0898.anotherpunishgui.commands;
 
 import io.github.math0898.utils.commands.BetterCommand;
 import io.github.math0898.utils.commands.Subcommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The SRootCommand handles the root part of any given commands and passes them onto other command handlers.
@@ -28,6 +26,9 @@ public class SRootCommand extends BetterCommand {
     public SRootCommand () {
         super("s");
         subcommands.put("notes", new NoteSubcommand());
+        subcommands.put("punish", new PunishSubcommand());
+        subcommands.put("history", new HistorySubcommand());
+        subcommands.put("reports", new ReportsSubcommand());
     }
 
     /**
@@ -38,7 +39,7 @@ public class SRootCommand extends BetterCommand {
      */
     @Override
     public boolean onPlayerCommand (Player player, String[] args) {
-        return true;
+        return onNonPlayerCommand(player, args);
     }
 
     /**
@@ -49,6 +50,16 @@ public class SRootCommand extends BetterCommand {
      */
     @Override
     public boolean onNonPlayerCommand (CommandSender sender, String[] args) {
+        if (args.length == 0) {
+            send(sender, ChatColor.RED + "Usage: /s <punish/history/reports/notes>...");
+            return true;
+        }
+        Subcommand sub = subcommands.get(args[0]);
+        if (sub == null) {
+            send(sender, ChatColor.RED + "Usage: /s <punish/history/reports/notes>...");
+            return true;
+        }
+        sub.onNonPlayerCommand(sender, Arrays.copyOfRange(args, 1, args.length));
         return true;
     }
 
@@ -65,7 +76,7 @@ public class SRootCommand extends BetterCommand {
         else if (args.length > 1) {
             Subcommand sub = subcommands.get(args[0]);
             if (sub == null) return toReturn;
-            else return sub.simplifiedTab(sender, args);
+            else return sub.simplifiedTab(sender, Arrays.copyOfRange(args, 1, args.length));
         }
         return everythingStartsWith(toReturn, args[0], false);
     }

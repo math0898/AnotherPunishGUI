@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 /**
- * The NoteSubcommand is used by staff to write notes about specific problem players.
+ * The Punish subcommand punishes the given player. Will open an inventory if a punishment is not configured.
  *
- * @author Sugaku
+ * @author Suagku
  */
-public class NoteSubcommand implements Subcommand { // todo: Implement.
+public class PunishSubcommand implements Subcommand { // todo: Implement
 
     /**
      * Called whenever specifically a player executes this command.
