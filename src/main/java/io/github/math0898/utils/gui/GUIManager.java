@@ -1,8 +1,16 @@
 package io.github.math0898.utils.gui;
 
+import io.github.math0898.anotherpunishgui.AnotherPunishGUI;
+import lombok.Getter;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * The GUIManager is used to register GUIs, open them by string name, and to forward click events from one event
@@ -10,12 +18,65 @@ import java.util.HashMap;
  *
  * @author Sugaku
  */
-public class GUIManager implements Listener {
+public class GUIManager implements Listener { // todo: Register
 
-    HashMap<String, GUI> guisByID;
-    HashMap<String, GUI> guisByTitle;
+    /**
+     * A map of guis by their String ids. This is used to make interacting with a specific inventory O(log n).
+     */
+    private final HashMap<String, GUI> guisByID = new HashMap<>();
+
+    /**
+     * A map of guis by their title. This is used to improve the performance of {@link #onInventoryClick(InventoryClickEvent)}
+     * significantly.
+     */
+    private final HashMap<String, GUI> guisByTitle = new HashMap<>();
+
+    /**
+     * The GUI Manager follows the singleton design pattern.
+     * -- GETTER --
+     * Static accessor for the active GUIManager instance.
+     */
+    @Getter
+    private static final GUIManager instance = new GUIManager();
+
+    /**
+     * Adds a GUI to the GUI manager.
+     *
+     * @param id  This is the string id the GUI will go by.
+     * @param gui The GUI to add.
+     */
+    public void addGUI (String id, GUI gui) {
+        guisByID.put(id, gui);
+        guisByTitle.put(gui.getTitle(), gui);
+    }
+
+    /**
+     * Opens the GUI by the given id to the given player.
+     *
+     * @param id     The id of the GUI to open.
+     * @param player The player to open the GUI to.
+     */
+    public void openGUI (String id, Player player) {
+        GUI gui = guisByID.get(id);
+        if (gui == null) AnotherPunishGUI.getInstance().getLogger().log(Level.WARNING, "Tried to open: " + id + " but GUI not found!");
+        else gui.openInventory(player);
+    }
 
     /**
      * Called whenever an inventory is clicked.
+     *
+     * @param event The inventory click event to consider.
      */
+    @EventHandler
+    public void onInventoryClick (InventoryClickEvent event) {
+        Inventory clicked = event.getClickedInventory();
+        if (clicked == null) return;
+        InventoryView view = event.getView();
+        if (clicked.equals(view.getTopInventory())) {
+            String title = view.getTitle();
+            GUI gui = guisByTitle.get(title);
+            if (gui == null) return;
+            gui.onClick(event);
+        }
+    }
 }
