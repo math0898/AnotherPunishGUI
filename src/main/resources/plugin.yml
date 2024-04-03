@@ -4,6 +4,8 @@ main: io.github.math0898.anotherpunishgui.AnotherPunishGUI
 api-version: '1.20'
 author: Sugaku
 description: "A punish GUI plugin developed as a trial project."
+softdepend:
+  - LightAntiCheat
 commands:
   s:
     permission: "apgui.staff"

@@ -6,6 +6,7 @@ punishments:
     display-name: "Xray 1d Ban"
     description:
       - "&7XRay First Offense"
+    message: "&7You have been &cbanned &7for 1 day. Reason: &cXray"
 
 # These are reasons that a player may wish to report another player.
 # Players will also be allowed to type in their own reason.
@@ -14,3 +15,8 @@ reasons:
   - "xray"
   - "KAura"
   - "Reach"
+
+# Whether to use the listed integration.
+hooks:
+  # LightAntiCheat can be used to issue punishments as an alternative to the built-in system.
+  light-anti-cheat: true

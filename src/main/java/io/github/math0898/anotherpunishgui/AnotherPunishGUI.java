@@ -1,6 +1,7 @@
 package io.github.math0898.anotherpunishgui;
 
 import io.github.math0898.anotherpunishgui.commands.SRootCommand;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -12,15 +13,11 @@ public final class AnotherPunishGUI extends JavaPlugin {
 
     /**
      * The active AnotherPunishGUI instance at runtime.
+     * -- GETTER --
+     *  An accessor method for the active AnotherPunishGUI instance.
      */
+    @Getter
     private static AnotherPunishGUI instance;
-
-    /**
-     * An accessor method for the active AnotherPunishGUI instance.
-     */
-    public static AnotherPunishGUI getInstance () {
-        return instance;
-    }
 
     /**
      * Called when the plugin is enabled. Used to register listeners, commands, load configuration, etc.

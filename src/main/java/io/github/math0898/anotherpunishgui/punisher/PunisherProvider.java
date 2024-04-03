@@ -1,5 +1,8 @@
 package io.github.math0898.anotherpunishgui.punisher;
 
+import io.github.math0898.anotherpunishgui.ConfigManager;
+import org.bukkit.Bukkit;
+
 /**
  * The PunisherProvider provides a valid punisher to the rest of the plugin depending on libraries.
  *
@@ -21,7 +24,10 @@ public class PunisherProvider {
      * Creates the PunisherProvider and determines which punisher to utilize.
      */
     private PunisherProvider () {
-        punisher = null; // todo: Implement.
+        ConfigManager manager = ConfigManager.getInstance();
+        if (manager.isUseLightAntiCheat() && Bukkit.getPluginManager().isPluginEnabled("LightAntiCheat"))
+            punisher = new LightAntiCheatPunisher();
+        else punisher = new StandalonePunisher();
     }
 
     /**
