@@ -1,22 +1,18 @@
 package io.github.math0898.anotherpunishgui.structures;
 
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 
 /**
- * Notes are issued by staff about particular players.
+ * The YamlSavable interface is used to uniformly save notes, reports, and punishments to local saved files.
  *
  * @author Sugaku
  */
-public record Note (String staff, Player target, String data) implements YamlSavable {
+public interface YamlSavable {
 
     /**
      * Saves this object to the given configuration section.
      *
      * @param section The section to save this item at.
      */
-    @Override
-    public void save (ConfigurationSection section) {
-        // todo: Implement.
-    }
+    void save (ConfigurationSection section);
 }

@@ -1,6 +1,6 @@
 package io.github.math0898.anotherpunishgui.database;
 
-import io.github.math0898.anotherpunishgui.structures.Report;
+import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
 
 /**
@@ -11,11 +11,12 @@ import org.bukkit.entity.Player;
 public interface Database {
 
     /**
-     * Saves a given report to the database.
+     * Saves an arbitrary YamlSavable object to the given database location.
      *
-     * @param report The report to save.
+     * @param savable The item to save to the database.
+     * @param type    The type of data the savable represents. Used to determine specific location.
      */
-    void saveReport (Report report);
+    void save (YamlSavable savable, DataTypes type);
 
     /**
      * Deletes any existing notes on the given player.
@@ -23,14 +24,6 @@ public interface Database {
      * @param player The player to clear of any notes.
      */
     void clearNotes (Player player);
-
-    /**
-     * Adds a note to the given player.
-     *
-     * @param player The player to add a note for.
-     * @param note   The note to add.
-     */
-    void addNote (Player player, String note);
 
     /**
      * Removes a note from the given player that starts with the passed string.

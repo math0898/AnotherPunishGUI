@@ -1,6 +1,6 @@
 package io.github.math0898.anotherpunishgui.database;
 
-import io.github.math0898.anotherpunishgui.structures.Report;
+import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
 
 /**
@@ -11,14 +11,15 @@ import org.bukkit.entity.Player;
 public class LocalDatabase implements Database { // todo: Consider caching changes between reads/writes.
 
     /**
-     * Saves a given report to the database.
+     * Saves an arbitrary YamlSavable object to the given database location.
      *
-     * @param report The report to save.
+     * @param savable The item to save to the database.
+     * @param type    The type of data the savable represents. Used to determine specific location.
      */
     @Override
-    public void saveReport (Report report) {
-        // todo: Implement!
-        System.out.println("Saved report: " + report.toString());
+    public void save (YamlSavable savable, DataTypes type) {
+        // todo: Implement.
+        System.out.println("Saved: " + savable.toString() + " of type: " + type.toString());
     }
 
     /**
@@ -31,19 +32,6 @@ public class LocalDatabase implements Database { // todo: Consider caching chang
         // todo: Implement!
         System.out.println("Cleared notes: " + player.toString());
     }
-
-    /**
-     * Adds a note to the given player.
-     *
-     * @param player The player to add a note for.
-     * @param note   The note to add.
-     */
-    @Override
-    public void addNote (Player player, String note) {
-        // todo: Implement.
-        System.out.println("Saved note: " + note);
-    }
-
     /**
      * Removes a note from the given player that starts with the passed string.
      *

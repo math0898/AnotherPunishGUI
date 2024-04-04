@@ -1,6 +1,7 @@
 package io.github.math0898.anotherpunishgui.commands;
 
 import io.github.math0898.anotherpunishgui.ConfigManager;
+import io.github.math0898.anotherpunishgui.database.DataTypes;
 import io.github.math0898.anotherpunishgui.database.Database;
 import io.github.math0898.anotherpunishgui.database.DatabaseProvider;
 import io.github.math0898.anotherpunishgui.structures.Report;
@@ -57,7 +58,7 @@ public class ReportCommand extends BetterCommand {
         }
         Report report = new Report(sender.getName(), player.getUniqueId(), args[1], System.currentTimeMillis(), false);
         Database database = DatabaseProvider.getInstance().getDatabase();
-        database.saveReport(report);
+        database.save(report, DataTypes.REPORT);
         send(sender, ChatColor.GREEN + "You have reported " + player.getName() + " for " + args[1] + ". Staff will investigate.");
         Bukkit.getOnlinePlayers().forEach((p) -> {
             if (p.hasPermission("apgui.notify")) p.sendMessage(player.getName() + " has been reported for: " + args[1]);

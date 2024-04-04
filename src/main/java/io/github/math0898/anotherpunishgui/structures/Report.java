@@ -1,5 +1,7 @@
 package io.github.math0898.anotherpunishgui.structures;
 
+import org.bukkit.configuration.ConfigurationSection;
+
 import java.util.UUID;
 
 /**
@@ -7,7 +9,7 @@ import java.util.UUID;
  *
  * @author Sugaku
  */
-public record Report (String issuer, UUID target, String reason, long creationTime, boolean resolved) {
+public record Report (String issuer, UUID target, String reason, long creationTime, boolean resolved) implements YamlSavable {
 
     /**
      * Converts this Record into a human-readable string.
@@ -17,5 +19,15 @@ public record Report (String issuer, UUID target, String reason, long creationTi
     @Override
     public String toString() {
         return "Report: by " + issuer + " -> " + target + ".\n >" + reason + " [" + resolved +"] (" + creationTime + ")";
+    }
+
+    /**
+     * Saves this object to the given configuration section.
+     *
+     * @param section The section to save this item at.
+     */
+    @Override
+    public void save (ConfigurationSection section) {
+        // todo: Implement!
     }
 }

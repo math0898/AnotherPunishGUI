@@ -1,7 +1,9 @@
 package io.github.math0898.anotherpunishgui.commands;
 
+import io.github.math0898.anotherpunishgui.database.DataTypes;
 import io.github.math0898.anotherpunishgui.database.Database;
 import io.github.math0898.anotherpunishgui.database.DatabaseProvider;
+import io.github.math0898.anotherpunishgui.structures.Note;
 import io.github.math0898.utils.commands.Subcommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -64,7 +66,8 @@ public class NoteSubcommand implements Subcommand { // todo: Implement.
             note.append(" ").append(args[i]);
         if (args[1].equalsIgnoreCase("add")) {
             sender.sendMessage(ChatColor.GREEN + "Note added!");
-            database.addNote(player, note.toString());
+            Note obj = new Note(sender.getName(), player, note.toString());
+            database.save(obj, DataTypes.NOTE);
         }
         else if (args[1].equalsIgnoreCase("remove")) {
             sender.sendMessage(ChatColor.GREEN + "Note removed!");
