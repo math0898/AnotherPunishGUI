@@ -1,10 +1,18 @@
 package io.github.math0898.anotherpunishgui.commands;
 
+import io.github.math0898.anotherpunishgui.database.Database;
+import io.github.math0898.anotherpunishgui.database.DatabaseProvider;
 import io.github.math0898.utils.commands.Subcommand;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static io.github.math0898.utils.commands.BetterCommand.everythingStartsWith;
 
 /**
  * The NoteSubcommand is used by staff to write notes about specific problem players.
@@ -21,7 +29,7 @@ public class NoteSubcommand implements Subcommand { // todo: Implement.
      */
     @Override
     public boolean onPlayerCommand (Player player, String[] args) {
-        return false;
+        return onNonPlayerCommand(player, args);
     }
 
     /**
@@ -32,7 +40,39 @@ public class NoteSubcommand implements Subcommand { // todo: Implement.
      */
     @Override
     public boolean onNonPlayerCommand (CommandSender sender, String[] args) {
-        return false;
+        if (args.length < 2) {
+            sender.sendMessage(ChatColor.RED + "Usage: /s notes <player> <add/remove/clear>");
+            return true;
+        }
+        Player player = Bukkit.getPlayer(args[0]);
+        if (player == null) {
+            sender.sendMessage(ChatColor.RED + "We could not find a player by that name.");
+            return true;
+        }
+        Database database = DatabaseProvider.getInstance().getDatabase();
+        if (args[1].equalsIgnoreCase("clear")) {
+            database.clearNotes(player);
+            sender.sendMessage(ChatColor.GREEN + "Cleared note.");
+            return true;
+        }
+        if (args.length < 3) {
+            sender.sendMessage(ChatColor.RED + "Usage: /s notes <player> <add/remove/clear>");
+            return true;
+        }
+        StringBuilder note = new StringBuilder(args[2]);
+        for (int i = 3; i < args.length; i++)
+            note.append(" ").append(args[i]);
+        if (args[1].equalsIgnoreCase("add")) {
+            sender.sendMessage(ChatColor.GREEN + "Note added!");
+            database.addNote(player, note.toString());
+        }
+        else if (args[1].equalsIgnoreCase("remove")) {
+            sender.sendMessage(ChatColor.GREEN + "Note removed!");
+            database.removeNote(player, note.toString());
+        }
+        else sender.sendMessage(ChatColor.RED + "Usage: /s notes <player> <add/remove/clear>");
+        // todo: Implement remove.
+        return true;
     }
 
     /**
@@ -42,7 +82,14 @@ public class NoteSubcommand implements Subcommand { // todo: Implement.
      * @param args   The current arguments they have typed.
      */
     @Override
-    public List<String> simplifiedTab (CommandSender sender, String[] args) {
-        return null;
+    public List<String> simplifiedTab (CommandSender sender, String[] args) { // todo: Implement remove.
+        List<String> toReturn = new ArrayList<>();
+        if (args.length <= 1) Bukkit.getOnlinePlayers().forEach((p) -> toReturn.add(p.getName()));
+        else if (args.length == 2) toReturn.addAll(Arrays.asList("add", "remove", "clear"));
+        else if (args.length == 3 && args[1].equalsIgnoreCase("add")) return List.of("<txt>");
+        else if (args[1].equalsIgnoreCase("remove")) { // implied args length of >= 3
+            // todo: Query a list of notes on the player provided in arg 1, then provide tab completion. Make sure to cache.
+        }
+        return everythingStartsWith(toReturn, args[args.length - 1], false);
     }
 }

@@ -67,8 +67,8 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter, Su
      * @param list      The list to trim down.
      * @param start     The string that everything must start with.
      * @return The trimmed list.
-     */
-    protected List<String> everythingStartsWith (List<String> list, String start, boolean caseSens) {
+     */ // todo: This should be moved somewhere else.
+    public static List<String> everythingStartsWith (List<String> list, String start, boolean caseSens) {
         List<String> listCopy = new java.util.ArrayList<>(List.copyOf(list));
         if (caseSens) listCopy.removeIf((s) -> !s.startsWith(start));
         else listCopy.removeIf((s) -> !s.toLowerCase().startsWith(start.toLowerCase()));
