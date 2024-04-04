@@ -23,8 +23,6 @@ public class ReportsGUI extends PageableGUI {
      */
     public ReportsGUI () {
         super(ChatColor.DARK_GRAY + "Reports");
-
-        setItems();
     }
 
     /**
@@ -37,6 +35,7 @@ public class ReportsGUI extends PageableGUI {
         List<Report> reports = DatabaseProvider.getInstance().getDatabase().getReports();
         List<ItemStack> itemDisplay = new ArrayList<>();
         reports.forEach((r) -> itemDisplay.add(r.getItemStack()));
+        setItems(itemDisplay.toArray(new ItemStack[0]));
         super.openInventory(player);
     }
 
@@ -46,7 +45,8 @@ public class ReportsGUI extends PageableGUI {
      * @param event The inventory click event.
      */
     @Override
-    public void onClick(InventoryClickEvent event) {
+    public void onClick (InventoryClickEvent event) {
         super.onClick(event);
+        // todo: Add a way to mark reports as resolved.
     }
 }

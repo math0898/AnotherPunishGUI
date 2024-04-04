@@ -1,7 +1,10 @@
 package io.github.math0898.anotherpunishgui.database;
 
+import io.github.math0898.anotherpunishgui.structures.Report;
 import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /**
  * A database saves and loads file from a generic save location.
@@ -32,4 +35,11 @@ public interface Database {
      * @param note   The note to remove.
      */
     void removeNote (Player player, String note);
+
+    /**
+     * Returns the full list of reports.
+     *
+     * @return The full list of reports in the database.
+     */
+    List<Report> getReports ();
 }

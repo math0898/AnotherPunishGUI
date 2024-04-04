@@ -1,7 +1,11 @@
 package io.github.math0898.anotherpunishgui.database;
 
+import io.github.math0898.anotherpunishgui.structures.Report;
 import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The local database saves data locally in the plugin data folder.
@@ -42,5 +46,15 @@ public class LocalDatabase implements Database { // todo: Consider caching chang
     public void removeNote (Player player, String note) {
         // todo: Implement.
         System.out.println("Removed note: " + note);
+    }
+
+    /**
+     * Returns the full list of reports.
+     *
+     * @return The full list of reports in the database.
+     */
+    @Override
+    public List<Report> getReports () {
+        return new ArrayList<>();
     }
 }

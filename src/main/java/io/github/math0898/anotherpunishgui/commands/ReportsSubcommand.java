@@ -1,9 +1,13 @@
 package io.github.math0898.anotherpunishgui.commands;
 
+import io.github.math0898.anotherpunishgui.gui.ReportsGUI;
 import io.github.math0898.utils.commands.Subcommand;
+import io.github.math0898.utils.gui.GUIManager;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +18,13 @@ import java.util.List;
 public class ReportsSubcommand implements Subcommand { // todo: Implement
 
     /**
+     * Creates a new ReportsSubcommand.
+     */
+    public ReportsSubcommand () {
+        GUIManager.getInstance().addGUI("reports", new ReportsGUI());
+    }
+
+    /**
      * Called whenever specifically a player executes this command.
      *
      * @param player The player who ran this command.
@@ -21,7 +32,8 @@ public class ReportsSubcommand implements Subcommand { // todo: Implement
      */
     @Override
     public boolean onPlayerCommand (Player player, String[] args) {
-        return false;
+        GUIManager.getInstance().openGUI("reports", player);
+        return true;
     }
 
     /**
@@ -32,7 +44,9 @@ public class ReportsSubcommand implements Subcommand { // todo: Implement
      */
     @Override
     public boolean onNonPlayerCommand (CommandSender sender, String[] args) {
-        return false;
+        if (sender instanceof Player p) return onPlayerCommand(p, args); // This exists due to the way SRootCommand was implemented.
+        sender.sendMessage(ChatColor.RED + "This command can only be ran as a player.");
+        return true;
     }
 
     /**
@@ -43,6 +57,6 @@ public class ReportsSubcommand implements Subcommand { // todo: Implement
      */
     @Override
     public List<String> simplifiedTab (CommandSender sender, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 }

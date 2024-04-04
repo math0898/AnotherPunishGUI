@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The ItemBuilder is made to easily manufacture ItemStacks.
@@ -29,6 +31,11 @@ public class ItemBuilder {
      * The Lore that the resulting item will have.
      */
     private List<String> lore = null;
+
+    /**
+     * The uuid of the owning player. Ignored if not a player head.
+     */
+    private UUID owningPlayer = null;
 
     /**
      * Creates a new ItemBuilder using the given material.
@@ -73,6 +80,17 @@ public class ItemBuilder {
     }
 
     /**
+     * Used to set the owning player for skulls. Otherwise, ignored.
+     *
+     * @param uuid The uuid of the owning player.
+     * @return The mutated ItemBuilder.
+     */
+    public ItemBuilder setOwningPlayer (UUID uuid) {
+        this.owningPlayer = uuid;
+        return this;
+    }
+
+    /**
      * Called to get the resulting ItemStack object.
      *
      * @return The builder's resulting item.
@@ -84,6 +102,8 @@ public class ItemBuilder {
         assert meta != null;
         if (displayName != null) meta.setDisplayName(displayName);
         if (lore != null) meta.setLore(lore);
+        if (owningPlayer != null && meta instanceof SkullMeta skull)
+            skull.setOwningPlayer(Bukkit.getOfflinePlayer(owningPlayer));
         item.setItemMeta(meta);
         return item;
     }
