@@ -59,6 +59,9 @@ public class ReportCommand extends BetterCommand {
         Database database = DatabaseProvider.getInstance().getDatabase();
         database.saveReport(report);
         send(sender, ChatColor.GREEN + "You have reported " + player.getName() + " for " + args[1] + ". Staff will investigate.");
+        Bukkit.getOnlinePlayers().forEach((p) -> {
+            if (p.hasPermission("apgui.notify")) p.sendMessage(player.getName() + " has been reported for: " + args[1]);
+        });
         return true;
     }
 

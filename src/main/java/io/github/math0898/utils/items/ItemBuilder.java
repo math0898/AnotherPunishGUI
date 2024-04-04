@@ -1,0 +1,90 @@
+package io.github.math0898.utils.items;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The ItemBuilder is made to easily manufacture ItemStacks.
+ *
+ * @author Sugaku
+ */
+public class ItemBuilder {
+
+    /**
+     * The material that the resulting item will have.
+     */
+    private Material material;
+
+    /**
+     * The display name that the resulting item will have.
+     */
+    private String displayName = null;
+
+    /**
+     * The Lore that the resulting item will have.
+     */
+    private List<String> lore = null;
+
+    /**
+     * Creates a new ItemBuilder using the given material.
+     *
+     * @param material The material to use for this ItemBuilder.
+     */
+    public ItemBuilder(Material material) {
+        this.material = material;
+    }
+
+    /**
+     * Called to set the material used for this ItemBuilder. Returns the ItemBuilder to allow for chain calling.
+     *
+     * @param material The material to set this ItemBuilder to.
+     * @return The mutated ItemBuilder.
+     */
+    public ItemBuilder setMaterial (Material material) {
+        this.material = material;
+        return this;
+    }
+
+    /**
+     * Called to set the display name used for this ItemBuilder. Returns the ItemBuilder to allow for chain calling.
+     *
+     * @param name The display name for the resulting item.
+     * @return The mutated ItemBuilder.
+     */
+    public ItemBuilder setDisplayName (String name) {
+        this.displayName = name;
+        return this;
+    }
+
+    /**
+     * Called to set the lore value used for this ItemBuilder. Returns the ItemBuilder to allow for chain calling.
+     *
+     * @param lore The lore for the resulting item.
+     * @return The mutated ItemBuilder.
+     */
+    public ItemBuilder setLore (String[] lore) {
+        this.lore = new ArrayList<>(List.of(lore));
+        return this;
+    }
+
+    /**
+     * Called to get the resulting ItemStack object.
+     *
+     * @return The builder's resulting item.
+     */
+    public ItemStack build () {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) Bukkit.getItemFactory().getItemMeta(material);
+        assert meta != null;
+        if (displayName != null) meta.setDisplayName(displayName);
+        if (lore != null) meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
+}

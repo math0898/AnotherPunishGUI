@@ -17,3 +17,4 @@ permissions:
   apgui.*:
     apgui.staff:
     apgui.report:
+    apgui.notify:
