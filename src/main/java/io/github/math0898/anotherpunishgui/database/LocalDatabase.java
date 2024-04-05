@@ -1,5 +1,6 @@
 package io.github.math0898.anotherpunishgui.database;
 
+import io.github.math0898.anotherpunishgui.structures.Log;
 import io.github.math0898.anotherpunishgui.structures.Report;
 import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
@@ -55,6 +56,18 @@ public class LocalDatabase implements Database { // todo: Consider caching chang
      */
     @Override
     public List<Report> getReports () {
+        // todo: Implement.
+        return new ArrayList<>();
+    }
+
+    /**
+     * Grabs all the logs on a specific player.
+     *
+     * @param player The player to grab the logs of.
+     */
+    @Override
+    public List<Log> getLogs (Player player) {
+        // todo: Implement.
         return new ArrayList<>();
     }
 }

@@ -23,7 +23,7 @@ public enum DataTypes {
     /**
      * Punishments are enacted by staff.
      */
-    PUNISHMENT("history.yml");
+    LOG("history.yml");
 
     /**
      * The yml file to save this DataType to when saving locally.

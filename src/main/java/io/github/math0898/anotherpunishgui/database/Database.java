@@ -1,5 +1,6 @@
 package io.github.math0898.anotherpunishgui.database;
 
+import io.github.math0898.anotherpunishgui.structures.Log;
 import io.github.math0898.anotherpunishgui.structures.Report;
 import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
@@ -42,4 +43,11 @@ public interface Database {
      * @return The full list of reports in the database.
      */
     List<Report> getReports ();
+
+    /**
+     * Grabs all the logs on a specific player.
+     *
+     * @param player The player to grab the logs of.
+     */
+    List<Log> getLogs (Player player);
 }

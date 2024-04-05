@@ -1,10 +1,12 @@
 package io.github.math0898.anotherpunishgui.structures;
 
+import java.util.List;
+
 /**
  * Punishments are specific outcomes picked by staff. They are configurable in config.yml.
  *
  * @author Sugaku
  */
-public record Punishment (String internalName, String displayName) {
-    // Todo: Will probably need a command list, need to also check LiteAntiCheat API to see how they do punishments.
+public record Punishment (String internalName, String displayName, List<Long> durations) {
+
 }

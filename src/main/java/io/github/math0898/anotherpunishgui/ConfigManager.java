@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author Sugaku
  */
+@Getter
 public class ConfigManager {
 
     /**
@@ -25,7 +26,6 @@ public class ConfigManager {
      * -- GETTER --
      * Whether to use LightAntiCheat or not if it is present.
      */
-    @Getter
     private boolean useLiteBans = true;
 
     /**
@@ -33,7 +33,6 @@ public class ConfigManager {
      * -- GETTER --
      * A list of reasons players are recommended to report as.
      */
-    @Getter
     private List<String> reportReasons = new ArrayList<>();
 
     /**
