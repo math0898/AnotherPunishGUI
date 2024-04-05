@@ -1,12 +1,19 @@
 # An arbitrary number of punishments may be defined.
 # The internal name is used for tab-completing and the display-name for GUI.
+# The type can either be "BAN" or "MUTE" depending on the type of punishment to deal.
+# Durations are listed in hours.
 punishments:
   xray-1d:
-    internal-name: "Xray-1d"
-    display-name: "Xray 1d Ban"
-    description:
-      - "&7XRay First Offense"
-    message: "&7You have been &cbanned &7for 1 day. Reason: &cXray"
+    internal-name: "Xray"
+    display-name: "&cXray Ban"
+    material: "DIAMOND_ORE"
+    type: "BAN"
+    durations:
+      - 24
+      - 72
+      - 168
+      - 744
+      - 8928
 
 # These are reasons that a player may wish to report another player.
 # Players will also be allowed to type in their own reason.

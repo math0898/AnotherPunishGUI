@@ -15,7 +15,7 @@ import java.util.UUID;
  *
  * @author Sugaku
  */
-public record Log (String staff, UUID user, String punishment, long creation, long duration) implements YamlSavable {
+public record Log (String staff, UUID user, String punishment, String type, long creation, long duration) implements YamlSavable {
 
     /**
      * Saves this object to the given configuration section.
@@ -40,6 +40,7 @@ public record Log (String staff, UUID user, String punishment, long creation, lo
                 .setLore(new String[] {
                         ChatColor.GRAY + "Banning Staff: " + staff,
                         ChatColor.GRAY + "Date: " + df.format(creation),
+                        ChatColor.GRAY + "Type: " + type,
                         ChatColor.GRAY + "Reason: " + ChatColor.RED + punishment,
                         ChatColor.GRAY + "Completed: " + (System.currentTimeMillis() >= creation + duration ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No")
                 });

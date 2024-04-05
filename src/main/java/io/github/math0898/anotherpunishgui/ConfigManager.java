@@ -1,6 +1,8 @@
 package io.github.math0898.anotherpunishgui;
 
+import io.github.math0898.anotherpunishgui.structures.Punishment;
 import lombok.Getter;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -36,6 +38,13 @@ public class ConfigManager {
     private List<String> reportReasons = new ArrayList<>();
 
     /**
+     * A list of punishments that can be carried out by the plugin.
+     * -- GETTER --
+     * A list of punishments that can be dealt.
+     */
+    private List<Punishment> punishments = new ArrayList<>();
+
+    /**
      * Creates a new ConfigManager.
      */
     private ConfigManager () {
@@ -44,6 +53,13 @@ public class ConfigManager {
         FileConfiguration config = YamlConfiguration.loadConfiguration(new File("./plugins/AnotherPunishGUI/config.yml"));
         useLiteBans = config.getBoolean("lite-bans", true);
         reportReasons = config.getStringList("reasons");
+        punishments = new ArrayList<>();
+        ConfigurationSection punishSection = config.getConfigurationSection("punishments");
+        if (punishSection != null)
+            for (String k : punishSection.getKeys(false)) {
+                ConfigurationSection punish = punishSection.getConfigurationSection(k);
+                if (punish != null) punishments.add(new Punishment(punish));
+            }
     }
 
     /**
