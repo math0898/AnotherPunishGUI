@@ -6,7 +6,6 @@ import io.github.math0898.anotherpunishgui.punisher.Punisher;
 import io.github.math0898.anotherpunishgui.punisher.PunisherProvider;
 import io.github.math0898.anotherpunishgui.structures.Punishment;
 import io.github.math0898.utils.commands.BetterCommand;
-import io.github.math0898.utils.commands.Subcommand;
 import io.github.math0898.utils.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,7 +20,14 @@ import java.util.List;
  *
  * @author Suagku
  */
-public class PunishSubcommand implements Subcommand {
+public class PunishSubcommand extends BetterCommand {
+
+    /**
+     * Creates a new BetterCommand with the given name.
+     */
+    public PunishSubcommand () {
+        super("punish-subcommand", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ", false);
+    }
 
     /**
      * Called whenever specifically a player executes this command.
@@ -92,6 +98,6 @@ public class PunishSubcommand implements Subcommand {
             List<Punishment> punishments = ConfigManager.getInstance().getPunishments();
             punishments.forEach((p) -> toReturn.add(p.internalName()));
         }
-        return BetterCommand.everythingStartsWith(toReturn, args[args.length - 1], false);
+        return everythingStartsWith(toReturn, args[args.length - 1], false);
     }
 }

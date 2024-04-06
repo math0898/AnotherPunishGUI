@@ -15,7 +15,7 @@ import java.util.logging.Level;
  *
  * @author Sugaku
  */
-public abstract class BetterCommand implements CommandExecutor, TabCompleter, Subcommand { // todo: Perhaps include an additional permission check.
+public abstract class BetterCommand implements CommandExecutor, TabCompleter { // todo: Perhaps include an additional permission check.
  // todo: Perhaps pre-define a list of basic tab completion options and add an additional option to register a call when args.length = 3/4 etc.
     /**
      * The name of this command as written in plugin.yml.
@@ -33,8 +33,7 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter, Su
      * @param name The name of the command as written in plugin.yml.
      */
     public BetterCommand (String name) {
-        commandName = name;
-        register();
+        this(name, "");
     }
 
     /**
@@ -44,10 +43,45 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter, Su
      * @param prefix A prefix that should be sent when sending a message from this command.
      */
     public BetterCommand (String name, String prefix) {
+        this(name, prefix, true);
+    }
+
+    /**
+     * Creates a new BetterCommand with the given name, prefix, and optionally doesn't register.
+     *
+     * @param name     The name of the command as written in plugin.yml.
+     * @param prefix   A prefix that should be sent when sending a message from this command.
+     * @param register Whether this command should be registered or not.
+     */
+    public BetterCommand (String name, String prefix, boolean register) {
         commandName = name;
         this.prefix = prefix;
-        register();
+        if (register) register();
     }
+
+    /**
+     * Called whenever specifically a player executes this command.
+     *
+     * @param player The player who ran this command.
+     * @param args   The arguments they passed to the command.
+     */
+    public abstract boolean onPlayerCommand (Player player, String[] args);
+
+    /**
+     * Called whenever an unspecified sender executes this command. This could include console and command blocks.
+     *
+     * @param sender The sender who ran this command.
+     * @param args   The arguments they passed to the command.
+     */
+    public abstract boolean onNonPlayerCommand (CommandSender sender, String[] args);
+
+    /**
+     * Called whenever a command sender is trying to tab complete a command.
+     *
+     * @param sender The sender who is tab completing this command.
+     * @param args   The current arguments they have typed.
+     */
+    public abstract List<String> simplifiedTab (CommandSender sender, String[] args);
 
     /**
      * Trims the given list down to only arguments that start with the given substring. Does not mutate the given list.
@@ -68,7 +102,7 @@ public abstract class BetterCommand implements CommandExecutor, TabCompleter, Su
      * @param start     The string that everything must start with.
      * @return The trimmed list.
      */ // todo: This should be moved somewhere else.
-    public static List<String> everythingStartsWith (List<String> list, String start, boolean caseSens) {
+    protected List<String> everythingStartsWith (List<String> list, String start, boolean caseSens) {
         List<String> listCopy = new java.util.ArrayList<>(List.copyOf(list));
         if (caseSens) listCopy.removeIf((s) -> !s.startsWith(start));
         else listCopy.removeIf((s) -> !s.toLowerCase().startsWith(start.toLowerCase()));

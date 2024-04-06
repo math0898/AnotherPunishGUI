@@ -1,7 +1,7 @@
 package io.github.math0898.anotherpunishgui.commands;
 
 import io.github.math0898.anotherpunishgui.gui.ReportsGUI;
-import io.github.math0898.utils.commands.Subcommand;
+import io.github.math0898.utils.commands.BetterCommand;
 import io.github.math0898.utils.gui.GUIManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -15,12 +15,13 @@ import java.util.List;
  *
  * @author Sugaku
  */
-public class ReportsSubcommand implements Subcommand { // todo: Implement
+public class ReportsSubcommand extends BetterCommand {
 
     /**
      * Creates a new ReportsSubcommand.
      */
     public ReportsSubcommand () {
+        super("reports-subcommand", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ", false);
         GUIManager.getInstance().addGUI("reports", new ReportsGUI());
     }
 

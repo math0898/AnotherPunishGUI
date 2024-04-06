@@ -2,7 +2,6 @@ package io.github.math0898.anotherpunishgui.commands;
 
 import io.github.math0898.anotherpunishgui.gui.HistoryGUI;
 import io.github.math0898.utils.commands.BetterCommand;
-import io.github.math0898.utils.commands.Subcommand;
 import io.github.math0898.utils.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +16,14 @@ import java.util.List;
  *
  * @author Sugaku
  */
-public class HistorySubcommand implements Subcommand {
+public class HistorySubcommand extends BetterCommand {
+
+    /**
+     * Creates a new BetterCommand with the given name.
+     */
+    public HistorySubcommand () {
+        super("history-subcommand", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ", false);
+    }
 
     /**
      * Called whenever specifically a player executes this command.
@@ -64,6 +70,6 @@ public class HistorySubcommand implements Subcommand {
     public List<String> simplifiedTab (CommandSender sender, String[] args) {
         List<String> toReturn = new ArrayList<>();
         if (args.length == 1) Bukkit.getOnlinePlayers().forEach((p) -> toReturn.add(p.getName()));
-        return BetterCommand.everythingStartsWith(toReturn, args[0], false);
+        return everythingStartsWith(toReturn, args[0], false);
     }
 }

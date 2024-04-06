@@ -1,7 +1,6 @@
 package io.github.math0898.anotherpunishgui.commands;
 
 import io.github.math0898.utils.commands.BetterCommand;
-import io.github.math0898.utils.commands.Subcommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,13 +17,13 @@ public class SRootCommand extends BetterCommand {
     /**
      * A map of Subcommands. The key value is the first word to activate the subcommand.
      */
-    private final Map<String, Subcommand> subcommands = new HashMap<>();
+    private final Map<String, BetterCommand> subcommands = new HashMap<>();
 
     /**
      * Creates a new BetterCommand with the given name.
      */
     public SRootCommand () {
-        super("s");
+        super("s", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ");
         subcommands.put("notes", new NoteSubcommand());
         subcommands.put("punish", new PunishSubcommand());
         subcommands.put("history", new HistorySubcommand());
@@ -54,7 +53,7 @@ public class SRootCommand extends BetterCommand {
             send(sender, ChatColor.RED + "Usage: /s <punish/history/reports/notes>...");
             return true;
         }
-        Subcommand sub = subcommands.get(args[0]);
+        BetterCommand sub = subcommands.get(args[0]);
         if (sub == null) {
             send(sender, ChatColor.RED + "Usage: /s <punish/history/reports/notes>...");
             return true;
@@ -74,7 +73,7 @@ public class SRootCommand extends BetterCommand {
         List<String> toReturn = new ArrayList<>();
         if (args.length == 1) toReturn.addAll(subcommands.keySet());
         else if (args.length >= 2) {
-            Subcommand sub = subcommands.get(args[0]);
+            BetterCommand sub = subcommands.get(args[0]);
             if (sub == null) return toReturn;
             else return sub.simplifiedTab(sender, Arrays.copyOfRange(args, 1, args.length));
         }

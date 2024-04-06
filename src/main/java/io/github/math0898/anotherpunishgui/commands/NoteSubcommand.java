@@ -4,7 +4,7 @@ import io.github.math0898.anotherpunishgui.database.DataTypes;
 import io.github.math0898.anotherpunishgui.database.Database;
 import io.github.math0898.anotherpunishgui.database.DatabaseProvider;
 import io.github.math0898.anotherpunishgui.structures.Note;
-import io.github.math0898.utils.commands.Subcommand;
+import io.github.math0898.utils.commands.BetterCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -14,14 +14,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static io.github.math0898.utils.commands.BetterCommand.everythingStartsWith;
-
 /**
  * The NoteSubcommand is used by staff to write notes about specific problem players.
  *
  * @author Sugaku
  */
-public class NoteSubcommand implements Subcommand {
+public class NoteSubcommand extends BetterCommand {
+
+    /**
+     * Creates a new BetterCommand with the given name.
+     */
+    public NoteSubcommand () {
+        super("note-subcommand", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ", false);
+    }
 
     /**
      * Called whenever specifically a player executes this command.

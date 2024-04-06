@@ -25,7 +25,7 @@ public class ReportCommand extends BetterCommand {
      * Creates a new BetterCommand with the given name.
      */
     public ReportCommand () {
-        super("report");
+        super("note-subcommand", ChatColor.DARK_GRAY + "[" + ChatColor.RED + "APGUI" + ChatColor.DARK_GRAY + "] ");
     }
 
     /**
