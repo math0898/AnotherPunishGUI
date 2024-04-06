@@ -32,6 +32,30 @@ public record Punishment (String internalName, String displayName, String type /
     }
 
     /**
+     * Gets the duration in either #h or #d format.
+     *
+     * @param index The index of the duration to get in this format.
+     */
+    public String displayDuration (int index) {
+        return durations.get(index) < 24 ? durations.get(index) + "h" : durations.get(index) / 24 + "d";
+    }
+
+    /**
+     * Gets the index of the punishment duration that should be used.
+     *
+     * @param player The player we're considering.
+     * @return The index of the punishment duration to use.
+     */
+    public int getDurationIndex (Player player) {
+        List<Log> logs = DatabaseProvider.getInstance().getDatabase().getLogs(player);
+        int punishments = 0;
+        for (Log l : logs)
+            if (l.punishment().equalsIgnoreCase(internalName))
+                punishments++;
+        return punishments;
+    }
+
+    /**
      * Returns an ItemStack representation of this Punishment using the logs of the given player.
      *
      * @param player The player to check the logs of to highlight punishment duration.
@@ -40,17 +64,12 @@ public record Punishment (String internalName, String displayName, String type /
     public ItemStack getItemStack (Player player) {
         ItemBuilder builder = new ItemBuilder(item);
         builder.setDisplayName(displayName);
-        List<Log> logs = DatabaseProvider.getInstance().getDatabase().getLogs(player);
-        int punishments = 0;
-        for (Log l : logs)
-            if (l.punishment().equalsIgnoreCase(internalName))
-                punishments++;
         List<String> opts = new ArrayList<>();
+        int punishments = getDurationIndex(player);
         for (int i = 0; i < durations.size(); i++) {
-            String dur = durations.get(i) < 24 ? durations.get(i) + "h" : durations.get(i) / 24 + "d";
             if (punishments == i)
-                opts.add(ChatColor.GRAY + "- " + ChatColor.GREEN + dur);
-            else opts.add(ChatColor.GRAY + "- " + dur);
+                opts.add(ChatColor.GRAY + "- " + ChatColor.GREEN + displayDuration(i));
+            else opts.add(ChatColor.GRAY + "- " + displayDuration(i));
         }
         builder.setLore(opts.toArray(new String[0]));
         return builder.build();
