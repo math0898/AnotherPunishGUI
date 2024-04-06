@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -69,6 +70,16 @@ public abstract class PageableGUI implements GUI {
         assert inv != null; // See GUIManager#onInventoryClick(event):
         if (event.getSlot() == 44) loadPage(inv, findPage(inv) + 1);
         else if (event.getSlot() == 36) loadPage(inv, findPage(inv) - 1);
+    }
+
+    /**
+     * Called whenever this GUI is closed.
+     *
+     * @param event The inventory close event.
+     */
+    @Override
+    public void onClose (InventoryCloseEvent event) {
+
     }
 
     /**

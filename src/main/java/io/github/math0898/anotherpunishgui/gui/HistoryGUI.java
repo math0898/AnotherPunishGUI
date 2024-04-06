@@ -6,6 +6,7 @@ import io.github.math0898.utils.gui.GUIManager;
 import io.github.math0898.utils.gui.PageableGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -30,9 +31,6 @@ public class HistoryGUI extends PageableGUI {
      */
     public HistoryGUI (Player player) {
         super(ChatColor.DARK_GRAY + "History - " + player.getName());
-        // todo: There is technically a memory leak here. We'll never remove this from the GUIManager so this GUI, and
-        //  the data it loads will never be caught by Java's Garbage Collection. This needs to be fixed at the design
-        //  level.
         GUIManager.getInstance().addGUI(getTitle(), this);
         this.player = player;
     }
@@ -49,5 +47,16 @@ public class HistoryGUI extends PageableGUI {
         logs.forEach((l) -> items.add(l.getItemStack()));
         setItems(items.toArray(new ItemStack[0]));
         super.openInventory(player);
+    }
+
+
+    /**
+     * Called whenever this GUI is closed.
+     *
+     * @param event The inventory close event.
+     */
+    @Override
+    public void onClose (InventoryCloseEvent event) {
+        GUIManager.getInstance().removeGUI(getTitle());
     }
 }

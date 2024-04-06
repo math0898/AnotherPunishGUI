@@ -2,6 +2,7 @@ package io.github.math0898.utils.gui;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 /**
  * A GUI is an inventory that has been opened to a player. It should also consider what happens when a player clicks.
@@ -23,6 +24,13 @@ public interface GUI {
      * @param event The inventory click event.
      */
     void onClick (InventoryClickEvent event);
+
+    /**
+     * Called whenever this GUI is closed.
+     *
+     * @param event The inventory close event.
+     */
+    void onClose (InventoryCloseEvent event);
 
     /**
      * Gets the title of this GUI. Used by the GUIManager to route InventoryClickEvents.

@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 
@@ -51,6 +52,16 @@ public class GUIManager implements Listener { // todo: Register
     }
 
     /**
+     * Removes a GUI from the GUI manager.
+     *
+     * @param id  This is the string id of the GUI to remove.
+     */
+    public void removeGUI (String id) {
+        GUI gui = guisByID.remove(id);
+        guisByTitle.remove(gui.getTitle());
+    }
+
+    /**
      * Opens the GUI by the given id to the given player.
      *
      * @param id     The id of the GUI to open.
@@ -77,6 +88,23 @@ public class GUIManager implements Listener { // todo: Register
             GUI gui = guisByTitle.get(title);
             if (gui == null) return;
             gui.onClick(event);
+        }
+    }
+
+    /**
+     * Called whenever an inventory is closed.
+     *
+     * @param event The inventory close event.
+     */
+    @EventHandler
+    public void onInventoryClose (InventoryCloseEvent event) {
+        Inventory clicked = event.getInventory();
+        InventoryView view = event.getView();
+        if (clicked.equals(view.getTopInventory())) {
+            String title = view.getTitle();
+            GUI gui = guisByTitle.get(title);
+            if (gui == null) return;
+            gui.onClose(event);
         }
     }
 }
