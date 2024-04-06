@@ -1,13 +1,48 @@
+#     _                _   _               ____              _     _      ____   _   ___
+#    / \   _ __   ___ | |_| |__   ___ _ __|  _ \ _   _ _ __ (_)___| |__  / ___| | | |_ _|
+#   / _ \ | '_ \ / _ \| __| '_ \ / _ \ '__| |_) | | | | '_ \| / __| '_ \| |  _| | | || |
+#  / ___ \| | | | (_) | |_| | | |  __/ |  |  __/| |_| | | | | \__ \ | | | |_| | |_| || |
+# /_/   \_\_| |_|\___/ \__|_| |_|\___|_|  |_|    \__,_|_| |_|_|___/_| |_|\____|\___/|___|
 # An arbitrary number of punishments may be defined.
 # The internal name is used for tab-completing and the display-name for GUI.
 # The type can either be "BAN" or "MUTE" depending on the type of punishment to deal.
 # Durations are listed in hours.
 punishments:
-  xray-1d:
+  xray:
     internal-name: "Xray"
     display-name: "&cXray Ban"
     material: "DIAMOND_ORE"
     type: "BAN"
+    durations:
+      - 24
+      - 72
+      - 168
+      - 744
+      - 8928
+  flight:
+    internal-name: "Flight"
+    display-name: "&cFlight Ban"
+    material: "FEATHER"
+    type: "BAN"
+    durations:
+      - 744
+      - 8928
+  spamming:
+    internal-name: "Spamming"
+    display-name: "&3Spamming Mute"
+    material: "GOAT_HORN"
+    type: "MUTE"
+    durations:
+      - 1
+      - 8
+      - 24
+      - 72
+      - 168
+  advertising:
+    internal-name: "Advertising"
+    display-name: "&eAdvertising Mute"
+    material: "GOLD_INGOT"
+    type: "MUTE"
     durations:
       - 24
       - 72
@@ -20,8 +55,10 @@ punishments:
 reasons:
   - "flight"
   - "xray"
-  - "KAura"
-  - "Reach"
+  - "k-aura"
+  - "reach"
+  - "spamming"
+  - "advertising"
 
 # Whether to use the listed integration.
 hooks:

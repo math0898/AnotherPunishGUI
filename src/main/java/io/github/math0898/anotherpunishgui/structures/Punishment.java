@@ -52,6 +52,7 @@ public record Punishment (String internalName, String displayName, String type /
         for (Log l : logs)
             if (l.punishment().equalsIgnoreCase(internalName))
                 punishments++;
+        if (punishments >= durations.size()) punishments = durations.size() - 1;
         return punishments;
     }
 

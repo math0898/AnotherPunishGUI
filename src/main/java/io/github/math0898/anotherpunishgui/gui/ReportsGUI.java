@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class ReportsGUI extends PageableGUI {
         List<Report> reports = DatabaseProvider.getInstance().getDatabase().getReports();
         List<ItemStack> itemDisplay = new ArrayList<>();
         reports.forEach((r) -> itemDisplay.add(r.getItemStack()));
+        reports.sort(Comparator.comparingInt(o -> (int) o.creationTime())); // This might be backwards
         setItems(itemDisplay.toArray(new ItemStack[0]));
         super.openInventory(player);
     }
