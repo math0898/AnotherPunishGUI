@@ -22,7 +22,7 @@ public record Note (String staff, UUID target, String data) implements YamlSavab
      */
     public Note (ConfigurationSection section) {
         this(section.getString("staff"),
-                UUID.fromString(section.getString("target", "")),
+                UUID.fromString(section.getString("uuid", "")),
                 section.getString("data"));
     }
 
@@ -34,7 +34,7 @@ public record Note (String staff, UUID target, String data) implements YamlSavab
     @Override
     public void save (ConfigurationSection section) {
         section.set("staff", staff);
-        section.set("uuid", target);
+        section.set("uuid", target.toString());
         section.set("data", data);
     }
 
@@ -45,7 +45,7 @@ public record Note (String staff, UUID target, String data) implements YamlSavab
      */
     public ItemStack getItemStack () {
         ItemBuilder builder = new ItemBuilder(Material.PAPER)
-                .setDisplayName(staff)
+                .setDisplayName(ChatColor.RESET + staff)
                 .setLore(new String[] {ChatColor.GRAY + "- " + data});
         return builder.build();
     }

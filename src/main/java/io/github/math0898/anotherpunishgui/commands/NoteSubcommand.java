@@ -66,7 +66,7 @@ public class NoteSubcommand implements Subcommand {
             note.append(" ").append(args[i]);
         if (args[1].equalsIgnoreCase("add")) {
             sender.sendMessage(ChatColor.GREEN + "Note added!");
-            Note obj = new Note(sender.getName(), player.getUniqueId().toString(), note.toString());
+            Note obj = new Note(sender.getName(), player.getUniqueId(), note.toString());
             database.save(obj, DataTypes.NOTE);
         }
         else if (args[1].equalsIgnoreCase("remove")) {
@@ -74,7 +74,6 @@ public class NoteSubcommand implements Subcommand {
             database.removeNote(player, note.toString());
         }
         else sender.sendMessage(ChatColor.RED + "Usage: /s notes <player> <add/remove/clear>");
-        // todo: Implement remove.
         return true;
     }
 

@@ -90,7 +90,7 @@ public abstract class PageableGUI implements GUI {
      */
     public void loadPage (Inventory inv, int n) {
         if (items == null) return;
-        if (n < 0) n = 1;
+        if (n < 0) n = 0;
         else if (n > items.length / 27) n = items.length / 27;
         for (int i = 0; i < 27; i++) {
             if (((n * 27) + i) >= items.length) {
@@ -111,8 +111,8 @@ public abstract class PageableGUI implements GUI {
     public int findPage (Inventory inv) {
         ItemStack item = inv.getItem(0);
         if (item == null) return 0;
-        for (int i = 0; i < items.length / 27; i++) // This seems to iterate the number of pages there would be with items.length items.
-            if (item.equals(items[i * 27]))
+        for (int i = 0; i <= items.length / 27; i++) // This seems to iterate the number of pages there would be with items.length items.
+            if (item.isSimilar(items[i * 27]))
                 return i;
         return 0;
     }

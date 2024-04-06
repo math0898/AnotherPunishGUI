@@ -2,6 +2,7 @@ package io.github.math0898.utils.gui;
 
 import io.github.math0898.anotherpunishgui.AnotherPunishGUI;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
  *
  * @author Sugaku
  */
-public class GUIManager implements Listener { // todo: Register
+public class GUIManager implements Listener {
 
     /**
      * A map of guis by their String ids. This is used to make interacting with a specific inventory O(log n).
@@ -39,6 +40,13 @@ public class GUIManager implements Listener { // todo: Register
      */
     @Getter
     private static final GUIManager instance = new GUIManager();
+
+    /**
+     * Creates a GUIManager.
+     */
+    private GUIManager () {
+        Bukkit.getPluginManager().registerEvents(this, AnotherPunishGUI.getInstance());
+    }
 
     /**
      * Adds a GUI to the GUI manager.
@@ -87,6 +95,7 @@ public class GUIManager implements Listener { // todo: Register
             String title = view.getTitle();
             GUI gui = guisByTitle.get(title);
             if (gui == null) return;
+            event.setCancelled(true);
             gui.onClick(event);
         }
     }
