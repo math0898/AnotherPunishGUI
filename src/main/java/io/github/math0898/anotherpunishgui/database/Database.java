@@ -1,6 +1,7 @@
 package io.github.math0898.anotherpunishgui.database;
 
 import io.github.math0898.anotherpunishgui.structures.Log;
+import io.github.math0898.anotherpunishgui.structures.Note;
 import io.github.math0898.anotherpunishgui.structures.Report;
 import io.github.math0898.anotherpunishgui.structures.YamlSavable;
 import org.bukkit.entity.Player;
@@ -50,4 +51,12 @@ public interface Database {
      * @param player The player to grab the logs of.
      */
     List<Log> getLogs (Player player);
+
+    /**
+     * Grabs all the notes listed on a specific player.
+     *
+     * @param player The player to get the notes of.
+     * @return The list of notes on this player.
+     */
+    List<Note> getNotes (Player player);
 }

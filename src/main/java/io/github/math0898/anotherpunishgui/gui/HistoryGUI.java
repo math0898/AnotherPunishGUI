@@ -2,6 +2,7 @@ package io.github.math0898.anotherpunishgui.gui;
 
 import io.github.math0898.anotherpunishgui.database.DatabaseProvider;
 import io.github.math0898.anotherpunishgui.structures.Log;
+import io.github.math0898.anotherpunishgui.structures.Note;
 import io.github.math0898.utils.gui.GUIManager;
 import io.github.math0898.utils.gui.PageableGUI;
 import org.bukkit.ChatColor;
@@ -41,10 +42,12 @@ public class HistoryGUI extends PageableGUI {
      * @param player The player to open the GUI to.
      */
     @Override
-    public void openInventory (Player player) { // todo: Needs Notes
+    public void openInventory (Player player) {
         List<ItemStack> items = new ArrayList<>();
         List<Log> logs = DatabaseProvider.getInstance().getDatabase().getLogs(this.player);
         logs.forEach((l) -> items.add(l.getItemStack()));
+        List<Note> notes = DatabaseProvider.getInstance().getDatabase().getNotes(this.player);
+        notes.forEach((n) -> items.add(n.getItemStack()));
         setItems(items.toArray(new ItemStack[0]));
         super.openInventory(player);
     }
