@@ -72,8 +72,8 @@ public class SRootCommand extends BetterCommand {
     @Override
     public List<String> simplifiedTab (CommandSender sender, String[] args) {
         List<String> toReturn = new ArrayList<>();
-        if (args.length == 0) toReturn.addAll(subcommands.keySet());
-        else if (args.length > 1) {
+        if (args.length == 1) toReturn.addAll(subcommands.keySet());
+        else if (args.length >= 2) {
             Subcommand sub = subcommands.get(args[0]);
             if (sub == null) return toReturn;
             else return sub.simplifiedTab(sender, Arrays.copyOfRange(args, 1, args.length));

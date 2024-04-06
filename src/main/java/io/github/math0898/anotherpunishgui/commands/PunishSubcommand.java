@@ -54,6 +54,7 @@ public class PunishSubcommand implements Subcommand {
      */
     @Override
     public boolean onNonPlayerCommand (CommandSender sender, String[] args) {
+        if (sender instanceof Player p) return onPlayerCommand(p, args); // This exists due to the way SRootCommand was implemented.
         if (args.length < 2) {
             sender.sendMessage(ChatColor.RED + "Usage: /s punish <player> <punishment>");
             return true;

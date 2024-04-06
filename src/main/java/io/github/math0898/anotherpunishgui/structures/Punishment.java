@@ -63,7 +63,7 @@ public record Punishment (String internalName, String displayName, String type /
      */
     public ItemStack getItemStack (Player player) {
         ItemBuilder builder = new ItemBuilder(item);
-        builder.setDisplayName(displayName);
+        builder.setDisplayName(ChatColor.translateAlternateColorCodes('&', displayName));
         List<String> opts = new ArrayList<>();
         int punishments = getDurationIndex(player);
         for (int i = 0; i < durations.size(); i++) {

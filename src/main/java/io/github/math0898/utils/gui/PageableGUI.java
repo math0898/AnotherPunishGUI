@@ -93,7 +93,7 @@ public abstract class PageableGUI implements GUI {
         if (n < 0) n = 1;
         else if (n > items.length / 27) n = items.length / 27;
         for (int i = 0; i < 27; i++) {
-            if (((n * 27) + i) > items.length) {
+            if (((n * 27) + i) >= items.length) {
                 for (int j = i; j < 27; j++)
                     inv.setItem(j, new ItemStack(Material.AIR, 1));
                 break;

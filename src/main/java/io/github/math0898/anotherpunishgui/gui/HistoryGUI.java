@@ -41,7 +41,7 @@ public class HistoryGUI extends PageableGUI {
      * @param player The player to open the GUI to.
      */
     @Override
-    public void openInventory (Player player) {
+    public void openInventory (Player player) { // todo: Needs Notes
         List<ItemStack> items = new ArrayList<>();
         List<Log> logs = DatabaseProvider.getInstance().getDatabase().getLogs(this.player);
         logs.forEach((l) -> items.add(l.getItemStack()));

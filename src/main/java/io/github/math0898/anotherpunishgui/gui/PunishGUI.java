@@ -1,12 +1,17 @@
 package io.github.math0898.anotherpunishgui.gui;
 
 import io.github.math0898.anotherpunishgui.ConfigManager;
+import io.github.math0898.anotherpunishgui.punisher.Punisher;
+import io.github.math0898.anotherpunishgui.punisher.PunisherProvider;
 import io.github.math0898.anotherpunishgui.structures.Punishment;
 import io.github.math0898.utils.gui.GUIManager;
 import io.github.math0898.utils.gui.PageableGUI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -43,13 +48,27 @@ public class PunishGUI extends PageableGUI { // todo: On click, shouldn't extend
      */
     @Override
     public void openInventory (Player player) {
+        Inventory inv = Bukkit.createInventory(player, 45, getTitle());
         List<ItemStack> items = new ArrayList<>();
         List<Punishment> punishments = ConfigManager.getInstance().getPunishments();
         punishments.forEach((p) -> items.add(p.getItemStack(this.player)));
-        setItems(items.toArray(new ItemStack[0]));
-        super.openInventory(player);
+        items.forEach(inv::addItem);
+        player.openInventory(inv);
     }
 
+    /**
+     * Called whenever this GUI is clicked.
+     *
+     * @param event The inventory click event.
+     */
+    @Override
+    public void onClick (InventoryClickEvent event) {
+        List<Punishment> punishments = ConfigManager.getInstance().getPunishments();
+        if (punishments.size() > event.getSlot()) {
+            Punisher punisher = PunisherProvider.getInstance().getPunisher();
+            punisher.punish(punishments.get(event.getSlot()), event.getWhoClicked(), this.player);
+        }
+    }
 
     /**
      * Called whenever this GUI is closed.
