@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Sugaku
  */
-public class PunishGUI extends PageableGUI { // todo: On click.
+public class PunishGUI extends PageableGUI { // todo: On click, shouldn't extend pageable.
 
     /**
      * The player this PunishGUI is specific to.

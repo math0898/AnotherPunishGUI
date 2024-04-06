@@ -1,6 +1,7 @@
 package io.github.math0898.anotherpunishgui.punisher;
 
 import io.github.math0898.anotherpunishgui.structures.Punishment;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -19,7 +20,7 @@ public class LiteBansPunisher implements Punisher {
      * @param player     The player receiving this punishment.
      */
     @Override
-    public void punish (Punishment punishment, Player staff, Player player) {
+    public void punish (Punishment punishment, CommandSender staff, Player player) {
         // todo: Implement.
     }
 }
