@@ -21,7 +21,7 @@ import static io.github.math0898.utils.commands.BetterCommand.everythingStartsWi
  *
  * @author Sugaku
  */
-public class NoteSubcommand implements Subcommand { // todo: Implement.
+public class NoteSubcommand implements Subcommand {
 
     /**
      * Called whenever specifically a player executes this command.
@@ -66,7 +66,7 @@ public class NoteSubcommand implements Subcommand { // todo: Implement.
             note.append(" ").append(args[i]);
         if (args[1].equalsIgnoreCase("add")) {
             sender.sendMessage(ChatColor.GREEN + "Note added!");
-            Note obj = new Note(sender.getName(), player, note.toString());
+            Note obj = new Note(sender.getName(), player.getUniqueId().toString(), note.toString());
             database.save(obj, DataTypes.NOTE);
         }
         else if (args[1].equalsIgnoreCase("remove")) {

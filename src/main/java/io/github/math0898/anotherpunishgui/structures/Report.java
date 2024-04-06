@@ -17,6 +17,19 @@ import java.util.UUID;
 public record Report (String issuer, UUID target, String reason, long creationTime, boolean resolved) implements YamlSavable {
 
     /**
+     * Creates a new Report based on the given configuration section.
+     *
+     * @param section The configuration section to make this Report out of.
+     */
+    public Report (ConfigurationSection section) {
+        this(section.getString("issuer"),
+                UUID.fromString(section.getString("uuid", "")),
+                section.getString("reason"),
+                section.getLong("creation"),
+                section.getBoolean("resolved"));
+    }
+
+    /**
      * Converts this Record into a human-readable string.
      *
      * @return This Record in a string format intended to be read by humans.
@@ -33,7 +46,11 @@ public record Report (String issuer, UUID target, String reason, long creationTi
      */
     @Override
     public void save (ConfigurationSection section) {
-        // todo: Implement!
+        section.set("issuer", issuer);
+        section.set("uuid", target.toString());
+        section.set("reason", reason);
+        section.set("creation", creationTime);
+        section.set("resolved", resolved);
     }
 
     /**
@@ -49,7 +66,7 @@ public record Report (String issuer, UUID target, String reason, long creationTi
                         ChatColor.GRAY + "Reporting player: " + issuer,
                         ChatColor.GRAY + "Reason: " + ChatColor.YELLOW + reason,
                         ChatColor.GRAY + "Resolved: " + (resolved ? ChatColor.GREEN + "Yes" : ChatColor.RED + "No")
-                }); // todo: Add in date/time.
+                });
         return builder.build();
     }
 }

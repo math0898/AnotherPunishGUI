@@ -18,13 +18,32 @@ import java.util.UUID;
 public record Log (String staff, UUID user, String punishment, String type, long creation, long duration) implements YamlSavable {
 
     /**
+     * Creates a new Log entry with data pulled from the given config section.
+     *
+     * @param section The configuration section to pull data from.
+     */
+    public Log (ConfigurationSection section) {
+        this(section.getString("staff"),
+                UUID.fromString(section.getString("target", "")),
+                section.getString("punishment"),
+                section.getString("type"),
+                section.getLong("creation"),
+                section.getLong("duration"));
+    }
+
+    /**
      * Saves this object to the given configuration section.
      *
      * @param section The section to save this item at.
      */
     @Override
     public void save (ConfigurationSection section) {
-        // todo: Implement!
+        section.set("staff", staff);
+        section.set("target", user.toString());
+        section.set("punishment", punishment);
+        section.set("type", type);
+        section.set("creation", creation);
+        section.set("duration", duration);
     }
 
     /**
